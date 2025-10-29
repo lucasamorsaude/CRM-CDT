@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow CRM - Gestão de Leads</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>LeadFlow CRM</h1>
+            </div>
+            <div class="menu">
+                <div class="menu-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="menu-item" data-page="leads">
+                    <i class="fas fa-users"></i>
+                    <span>Leads</span>
+                </div>
+                <div class="menu-item" data-page="vendedores">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Vendedores</span>
+                </div>
+                <div class="menu-item" data-page="relatorios">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Relatórios</span>
+                </div>
+                <div class="menu-item" data-page="configuracoes">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h2 id="page-title">Dashboard de Leads</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary" id="add-lead-btn">
+                        <i class="fas fa-plus"></i> Novo Lead
+                    </button>
+                    <div class="user-info">
+                        <div class="user-avatar">AD</div>
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Page -->
+            <div class="page active" id="dashboard-page">
+                <!-- Cards -->
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Total de Leads</div>
+                            <div class="card-icon leads">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">557</div>
+                        <div class="card-footer positive">
+                            <i class="fas fa-arrow-up"></i> 12% em relação ao mês anterior
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Vendas</div>
+                            <div class="card-icon vendas">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">116</div>
+                        <div class="card-footer positive">
+                            <i class="fas fa-arrow-up"></i> 8% em relação ao mês anterior
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Em Negociação</div>
+                            <div class="card-icon negociacao">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">82</div>
+                        <div class="card-footer positive">
+                            <i class="fas fa-arrow-up"></i> 15% em relação ao mês anterior
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Leads Perdidos</div>
+                            <div class="card-icon perdidos">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                        </div>
+                        <div class="card-value">94</div>
+                        <div class="card-footer negative">
+                            <i class="fas fa-arrow-down"></i> 5% em relação ao mês anterior
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Desempenho por Vendedor</div>
+                        </div>
+                        <canvas id="vendedorChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Status dos Leads</div>
+                        </div>
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Leads Recentes -->
+                <div class="table-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Leads Recentes</div>
+                        <button class="btn btn-outline">Ver Todos</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vendedor</th>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Origem</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-leads">
+                            <!-- Leads serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Leads Page -->
+            <div class="page" id="leads-page">
+                <div class="page-header">
+                    <div class="filters">
+                        <select id="status-filter">
+                            <option value="">Todos os Status</option>
+                            <option value="venda">Venda</option>
+                            <option value="negociacao">Negociação</option>
+                            <option value="aguardando">Aguardando</option>
+                            <option value="perdido">Perdido</option>
+                        </select>
+                        <select id="vendedor-filter">
+                            <option value="">Todos os Vendedores</option>
+                        </select>
+                        <input type="text" id="search-lead" placeholder="Buscar lead...">
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vendedor</th>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Origem</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-leads">
+                            <!-- Leads serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                    
+                    <div class="pagination">
+                        <div class="pagination-info" id="leads-info">
+                            Mostrando 0 de 0 leads
+                        </div>
+                        <div class="pagination-controls">
+                            <div class="pagination-btn" id="prev-page">
+                                <i class="fas fa-chevron-left"></i>
+                            </div>
+                            <div class="pagination-btn active">1</div>
+                            <div class="pagination-btn">2</div>
+                            <div class="pagination-btn">3</div>
+                            <div class="pagination-btn" id="next-page">
+                                <i class="fas fa-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vendedores Page -->
+            <div class="page" id="vendedores-page">
+                <div class="cards-container">
+                    <!-- Cards de vendedores serão gerados via JavaScript -->
+                </div>
+                
+                <div class="table-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Performance dos Vendedores</div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vendedor</th>
+                                <th>Leads</th>
+                                <th>Vendas</th>
+                                <th>Negociação</th>
+                                <th>Aguardando</th>
+                                <th>Perdidos</th>
+                                <th>Conversão</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vendedores-table">
+                            <!-- Dados serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Relatórios Page -->
+            <div class="page" id="relatorios-page">
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Leads por Origem</div>
+                        </div>
+                        <canvas id="origemChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">Conversão por Mês</div>
+                        </div>
+                        <canvas id="conversaoChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <div class="chart-title">Evolução Mensal</div>
+                    </div>
+                    <canvas id="evolucaoChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Configurações Page -->
+            <div class="page" id="configuracoes-page">
+                <div class="settings-container">
+                    <div class="setting-card">
+                        <h3>Integração com Google Sheets</h3>
+                        <p>Conecte seu CRM com uma planilha do Google</p>
+                        <button class="btn btn-primary" id="connect-sheets">
+                            <i class="fab fa-google"></i> Conectar Planilha
+                        </button>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <h3>Exportar Dados</h3>
+                        <p>Baixe seus dados em formato CSV</p>
+                        <button class="btn btn-outline" id="export-data">
+                            <i class="fas fa-download"></i> Exportar CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Lead -->
+    <div class="modal" id="lead-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Adicionar Novo Lead</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="lead-form">
+                <div class="form-group">
+                    <label for="lead-nome">Nome</label>
+                    <input type="text" id="lead-nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lead-telefone">Telefone</label>
+                    <input type="tel" id="lead-telefone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lead-email">Email</label>
+                    <input type="email" id="lead-email">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lead-vendedor">Vendedor</label>
+                        <select id="lead-vendedor" required>
+                            <option value="">Selecione um vendedor</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lead-status">Status</label>
+                        <select id="lead-status" required>
+                            <option value="aguardando">Aguardando</option>
+                            <option value="negociacao">Negociação</option>
+                            <option value="venda">Venda</option>
+                            <option value="perdido">Perdido</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lead-origem">Origem</label>
+                    <select id="lead-origem" required>
+                        <option value="hubspot">HubSpot</option>
+                        <option value="trafico-pago">Tráfego Pago</option>
+                        <option value="recepcao">Recepção</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="indicacao">Indicação</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lead-observacao">Observação</label>
+                    <textarea id="lead-observacao" rows="3"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline close-modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Lead</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
