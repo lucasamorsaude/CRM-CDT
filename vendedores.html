@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow CRM - Vendedores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>LeadFlow CRM</h1>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="crm.html" class="menu-item">
+                        <i class="fas fa-columns"></i>
+                        <span>Quadro Kanban</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="leads.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Leads</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="vendedores.html" class="menu-item active">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Vendedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios.html" class="menu-item">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="configuracoes.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h2>Performance dos Vendedores</h2>
+                <div class="header-actions">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Novo Vendedor
+                    </button>
+                    <div class="user-info">
+                        <div class="user-avatar">AD</div>
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards de Vendedores -->
+            <div class="cards-container" id="vendedores-cards">
+                <!-- Cards serão gerados via JavaScript -->
+            </div>
+            
+            <!-- Tabela de Performance -->
+            <div class="table-container">
+                <div class="chart-header">
+                    <div class="chart-title">Performance Detalhada</div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vendedor</th>
+                            <th>Leads</th>
+                            <th>Vendas</th>
+                            <th>Negociação</th>
+                            <th>Aguardando</th>
+                            <th>Perdidos</th>
+                            <th>Conversão</th>
+                            <th>Meta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendedores-table">
+                        <!-- Dados serão carregados via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vendedores.js"></script>
+</body>
+</html>
