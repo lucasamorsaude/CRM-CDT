@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow CRM - Configurações</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>LeadFlow CRM</h1>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="crm.html" class="menu-item">
+                        <i class="fas fa-columns"></i>
+                        <span>Quadro Kanban</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="leads.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Leads</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="vendedores.html" class="menu-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Vendedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios.html" class="menu-item">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="configuracoes.html" class="menu-item active">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h2>Configurações do Sistema</h2>
+                <div class="user-info">
+                    <div class="user-avatar">AD</div>
+                    <span>Admin</span>
+                </div>
+            </div>
+
+            <div class="settings-container">
+                <!-- Integração Google Sheets -->
+                <div class="setting-card">
+                    <h3><i class="fab fa-google"></i> Integração com Google Sheets</h3>
+                    <p>Sincronize seus dados com uma planilha do Google</p>
+                    <div class="form-group">
+                        <label for="sheet-url">URL da Planilha</label>
+                        <input type="url" id="sheet-url" placeholder="https://docs.google.com/spreadsheets/d/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="sync-frequency">Frequência de Sincronização</label>
+                        <select id="sync-frequency">
+                            <option value="realtime">Tempo Real</option>
+                            <option value="hourly">A Cada Hora</option>
+                            <option value="daily" selected>Diariamente</option>
+                            <option value="weekly">Semanalmente</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="connect-sheets">
+                        <i class="fas fa-link"></i> Conectar Planilha
+                    </button>
+                </div>
+
+                <!-- Exportação de Dados -->
+                <div class="setting-card">
+                    <h3><i class="fas fa-download"></i> Exportação de Dados</h3>
+                    <p>Exporte seus dados para análise externa</p>
+                    <div class="form-group">
+                        <label for="export-format">Formato de Exportação</label>
+                        <select id="export-format">
+                            <option value="csv">CSV</option>
+                            <option value="excel">Excel</option>
+                            <option value="json">JSON</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="export-period">Período</label>
+                        <select id="export-period">
+                            <option value="all">Todos os Dados</option>
+                            <option value="30">Últimos 30 dias</option>
+                            <option value="90">Últimos 90 dias</option>
+                            <option value="365">Último ano</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-outline" id="export-data">
+                        <i class="fas fa-file-export"></i> Exportar Dados
+                    </button>
+                </div>
+
+                <!-- Configurações de Notificação -->
+                <div class="setting-card">
+                    <h3><i class="fas fa-bell"></i> Notificações</h3>
+                    <p>Configure como deseja receber alertas e notificações</p>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="email-notifications" checked>
+                            Notificações por Email
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="browser-notifications">
+                            Notificações no Navegador
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="notification-frequency">Frequência de Alertas</label>
+                        <select id="notification-frequency">
+                            <option value="realtime">Imediato</option>
+                            <option value="hourly" selected>Resumo por Hora</option>
+                            <option value="daily">Resumo Diário</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-outline" id="save-notifications">
+                        <i class="fas fa-save"></i> Salvar Configurações
+                    </button>
+                </div>
+
+                <!-- Metas e Objetivos -->
+                <div class="setting-card">
+                    <h3><i class="fas fa-bullseye"></i> Metas e Objetivos</h3>
+                    <p>Defina metas para sua equipe de vendas</p>
+                    <div class="form-group">
+                        <label for="monthly-goal">Meta Mensal de Vendas</label>
+                        <input type="number" id="monthly-goal" placeholder="Ex: 50" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="conversion-goal">Meta de Taxa de Conversão (%)</label>
+                        <input type="number" id="conversion-goal" placeholder="Ex: 25" value="25" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="ticket-goal">Meta de Ticket Médio (R$)</label>
+                        <input type="number" id="ticket-goal" placeholder="Ex: 1000" value="1000">
+                    </div>
+                    <button class="btn btn-outline" id="save-goals">
+                        <i class="fas fa-target"></i> Definir Metas
+                    </button>
+                </div>
+
+                <!-- Backup e Restauração -->
+                <div class="setting-card">
+                    <h3><i class="fas fa-database"></i> Backup e Segurança</h3>
+                    <p>Gerencie backups e segurança dos seus dados</p>
+                    <div class="form-group">
+                        <label for="backup-frequency">Frequência de Backup Automático</label>
+                        <select id="backup-frequency">
+                            <option value="daily">Diariamente</option>
+                            <option value="weekly" selected>Semanalmente</option>
+                            <option value="monthly">Mensalmente</option>
+                            <option value="never">Desativado</option>
+                        </select>
+                    </div>
+                    <div class="form-actions" style="border: none; padding: 0; margin-top: 20px;">
+                        <button class="btn btn-outline" id="create-backup">
+                            <i class="fas fa-save"></i> Criar Backup Agora
+                        </button>
+                        <button class="btn btn-outline" id="restore-backup">
+                            <i class="fas fa-undo"></i> Restaurar Backup
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Configurações da Empresa -->
+                <div class="setting-card">
+                    <h3><i class="fas fa-building"></i> Informações da Empresa</h3>
+                    <p>Configure as informações da sua organização</p>
+                    <div class="form-group">
+                        <label for="company-name">Nome da Empresa</label>
+                        <input type="text" id="company-name" placeholder="Sua Empresa Ltda" value="LeadFlow Corp">
+                    </div>
+                    <div class="form-group">
+                        <label for="company-email">Email Principal</label>
+                        <input type="email" id="company-email" placeholder="contato@empresa.com" value="contato@leadflow.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="company-phone">Telefone</label>
+                        <input type="tel" id="company-phone" placeholder="(11) 99999-9999" value="(32) 3859-3686">
+                    </div>
+                    <button class="btn btn-primary" id="save-company">
+                        <i class="fas fa-save"></i> Salvar Informações
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+</body>
+</html>

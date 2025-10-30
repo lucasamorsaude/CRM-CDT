@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow CRM - Relatórios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>LeadFlow CRM</h1>
+            </div>
+            <ul class="menu">
+                <li>
+                    <a href="index.html" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="crm.html" class="menu-item">
+                        <i class="fas fa-columns"></i>
+                        <span>Quadro Kanban</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="leads.html" class="menu-item">
+                        <i class="fas fa-users"></i>
+                        <span>Leads</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="vendedores.html" class="menu-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Vendedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios.html" class="menu-item active">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="configuracoes.html" class="menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h2>Relatórios e Análises</h2>
+                <div class="header-actions">
+                    <div class="filters">
+                        <select id="periodo-filter">
+                            <option value="30">Últimos 30 dias</option>
+                            <option value="90">Últimos 90 dias</option>
+                            <option value="180">Últimos 6 meses</option>
+                            <option value="365">Último ano</option>
+                        </select>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">AD</div>
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards de Métricas -->
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Taxa de Conversão</div>
+                        <div class="card-icon vendas">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="taxa-conversao">0%</div>
+                    <div class="card-footer positive">
+                        <i class="fas fa-arrow-up"></i> 5% vs período anterior
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Ticket Médio</div>
+                        <div class="card-icon negociacao">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="ticket-medio">R$ 0</div>
+                    <div class="card-footer positive">
+                        <i class="fas fa-arrow-up"></i> 8% vs período anterior
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Tempo de Conversão</div>
+                        <div class="card-icon leads">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="tempo-conversao">0 dias</div>
+                    <div class="card-footer negative">
+                        <i class="fas fa-arrow-down"></i> 2 dias vs período anterior
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Custo por Lead</div>
+                        <div class="card-icon perdidos">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="custo-lead">R$ 0</div>
+                    <div class="card-footer positive">
+                        <i class="fas fa-arrow-down"></i> 12% vs período anterior
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gráficos Principais -->
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Leads por Origem</div>
+                    </div>
+                    <canvas id="origemChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Conversão por Mês</div>
+                    </div>
+                    <canvas id="conversaoChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Gráficos Secundários -->
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Evolução de Vendas</div>
+                    </div>
+                    <canvas id="vendasChart"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Status ao Longo do Tempo</div>
+                    </div>
+                    <canvas id="statusTimelineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Tabela de Performance -->
+            <div class="table-container">
+                <div class="chart-header">
+                    <div class="chart-title">Performance por Canal</div>
+                    <button class="btn btn-outline" id="export-relatorio">
+                        <i class="fas fa-download"></i> Exportar
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Canal</th>
+                            <th>Leads</th>
+                            <th>Vendas</th>
+                            <th>Taxa de Conversão</th>
+                            <th>Custo por Lead</th>
+                            <th>ROI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="performance-table">
+                        <!-- Dados serão carregados via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/relatorios.js"></script>
+</body>
+</html>
